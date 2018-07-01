@@ -6,8 +6,8 @@ This project is given by Andela Learning Community.
 # Prerequisites
 Android Studio or the apk can be downloaded, install and run on Android devices.
 
-#Author
+# Author
 Soyombo Soyinka.
 
-#Acknowledgment
+# Acknowledgment
 Udacity, Google and Andela
