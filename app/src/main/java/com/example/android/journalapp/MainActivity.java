@@ -14,13 +14,14 @@ import java.util.List;
 
 import static android.support.v7.widget.DividerItemDecoration.VERTICAL;
 
-public class MainActivity extends AppCompatActivity implements TaskAdapter.ItemClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, TaskAdapter.ItemClickListener {
 
     // Constant for logging
     private static final String TAG = MainActivity.class.getSimpleName();
     // Member variables for the adapter and RecyclerView
     private RecyclerView mRecyclerView;
     private TaskAdapter mAdapter;
+
 
     // COMPLETED (1) Create AppDatabase member variable for the Database
     private AppDatabase mDb;
@@ -78,6 +79,22 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.ItemC
         }).attachToRecyclerView(mRecyclerView);
 
         /*
+         Set the SignOut Button to its corresponding View.
+         Attach an OnClickListener to it, so that when it's clicked, a new intent will be created
+         to launch the SignOutActivity.
+         */
+        FloatingActionButton fabButton2 = findViewById(R.id.fab2);
+
+        fabButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Create a new intent to start an AddTaskActivity
+                Intent signOutIntent = new Intent(MainActivity.this, SignOutActivity.class);
+                startActivity(signOutIntent);
+            }
+        });
+
+        /*
          Set the Floating Action Button (FAB) to its corresponding View.
          Attach an OnClickListener to it, so that when it's clicked, a new intent will be created
          to launch the AddTaskActivity.
@@ -129,10 +146,14 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.ItemC
         });
     }
 
-
-
     @Override
     public void onItemClickListener(int itemId) {
-        // Launch AddTaskActivity adding the itemId as an extra in the intent
+        startActivity(new Intent (MainActivity.this, AddTaskActivity.class)
+                .putExtra(AddTaskActivity.EXTRA_TASK_ID, itemId));
+    }
+
+    @Override
+    public void onClick(View v) {
+       // startActivity(new Intent (MainActivity.this, AddTaskActivity.class));
     }
 }
